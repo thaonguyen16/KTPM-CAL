@@ -48,10 +48,10 @@
             // btnThoat
             // 
             this.btnThoat.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnThoat.Location = new System.Drawing.Point(229, 268);
+            this.btnThoat.Location = new System.Drawing.Point(426, 249);
             this.btnThoat.Margin = new System.Windows.Forms.Padding(4);
             this.btnThoat.Name = "btnThoat";
-            this.btnThoat.Size = new System.Drawing.Size(120, 39);
+            this.btnThoat.Size = new System.Drawing.Size(173, 39);
             this.btnThoat.TabIndex = 19;
             this.btnThoat.Text = "Thoát";
             this.btnThoat.UseVisualStyleBackColor = true;
@@ -60,10 +60,10 @@
             // btnTinh
             // 
             this.btnTinh.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTinh.Location = new System.Drawing.Point(33, 268);
+            this.btnTinh.Location = new System.Drawing.Point(216, 249);
             this.btnTinh.Margin = new System.Windows.Forms.Padding(4);
             this.btnTinh.Name = "btnTinh";
-            this.btnTinh.Size = new System.Drawing.Size(120, 39);
+            this.btnTinh.Size = new System.Drawing.Size(180, 39);
             this.btnTinh.TabIndex = 18;
             this.btnTinh.Text = "Tính";
             this.btnTinh.UseVisualStyleBackColor = true;
@@ -87,7 +87,7 @@
             this.txtKq.Location = new System.Drawing.Point(216, 107);
             this.txtKq.Margin = new System.Windows.Forms.Padding(4);
             this.txtKq.Name = "txtKq";
-            this.txtKq.Size = new System.Drawing.Size(132, 30);
+            this.txtKq.Size = new System.Drawing.Size(383, 30);
             this.txtKq.TabIndex = 15;
             this.txtKq.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -107,8 +107,9 @@
             this.txtSo2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtSo2.Location = new System.Drawing.Point(216, 59);
             this.txtSo2.Margin = new System.Windows.Forms.Padding(4);
+            this.txtSo2.MaxLength = 30;
             this.txtSo2.Name = "txtSo2";
-            this.txtSo2.Size = new System.Drawing.Size(132, 30);
+            this.txtSo2.Size = new System.Drawing.Size(383, 30);
             this.txtSo2.TabIndex = 13;
             this.txtSo2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtSo2.Click += new System.EventHandler(this.txtSo2_Click);
@@ -130,12 +131,12 @@
             this.txtSo1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtSo1.Location = new System.Drawing.Point(216, 15);
             this.txtSo1.Margin = new System.Windows.Forms.Padding(4);
+            this.txtSo1.MaxLength = 30;
             this.txtSo1.Name = "txtSo1";
-            this.txtSo1.Size = new System.Drawing.Size(132, 30);
+            this.txtSo1.Size = new System.Drawing.Size(383, 30);
             this.txtSo1.TabIndex = 11;
             this.txtSo1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtSo1.Click += new System.EventHandler(this.txtSo1_Click);
-           
             this.txtSo1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtSo1_KeyPress);
             // 
             // label1
@@ -155,11 +156,11 @@
             this.groupBox1.Controls.Add(this.radNhan);
             this.groupBox1.Controls.Add(this.radTru);
             this.groupBox1.Controls.Add(this.radCong);
-            this.groupBox1.Location = new System.Drawing.Point(155, 154);
+            this.groupBox1.Location = new System.Drawing.Point(216, 154);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox1.Size = new System.Drawing.Size(195, 95);
+            this.groupBox1.Size = new System.Drawing.Size(383, 78);
             this.groupBox1.TabIndex = 20;
             this.groupBox1.TabStop = false;
             // 
@@ -167,7 +168,7 @@
             // 
             this.radChia.AutoSize = true;
             this.radChia.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radChia.Location = new System.Drawing.Point(113, 54);
+            this.radChia.Location = new System.Drawing.Point(299, 26);
             this.radChia.Margin = new System.Windows.Forms.Padding(4);
             this.radChia.Name = "radChia";
             this.radChia.Size = new System.Drawing.Size(64, 24);
@@ -180,7 +181,7 @@
             // 
             this.radNhan.AutoSize = true;
             this.radNhan.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radNhan.Location = new System.Drawing.Point(113, 26);
+            this.radNhan.Location = new System.Drawing.Point(210, 26);
             this.radNhan.Margin = new System.Windows.Forms.Padding(4);
             this.radNhan.Name = "radNhan";
             this.radNhan.Size = new System.Drawing.Size(69, 24);
@@ -193,7 +194,7 @@
             // 
             this.radTru.AutoSize = true;
             this.radTru.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radTru.Location = new System.Drawing.Point(20, 54);
+            this.radTru.Location = new System.Drawing.Point(115, 26);
             this.radTru.Margin = new System.Windows.Forms.Padding(4);
             this.radTru.Name = "radTru";
             this.radTru.Size = new System.Drawing.Size(55, 24);
@@ -219,7 +220,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(384, 327);
+            this.ClientSize = new System.Drawing.Size(612, 327);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnThoat);
             this.Controls.Add(this.btnTinh);

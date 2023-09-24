@@ -8,6 +8,8 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Numerics;
+
 
 namespace Buoi07_TinhToan3
 {
@@ -17,6 +19,7 @@ namespace Buoi07_TinhToan3
         {
             InitializeComponent();
         }
+
 
         DialogResult dr;
 
@@ -74,18 +77,19 @@ namespace Buoi07_TinhToan3
             {
                 try
                 {
-                    double so1, so2, kq = 0;
                     string txt1, txt2;
                     txt1 = txtSo1.Text;
                     txt2 = txtSo2.Text;
 
 
                     // check length of text
-                    if (txt1.Length <= 9 && txt2.Length <= 9)
+                    if (txt1.Length < 9 && txt2.Length < 9)
                     {
-                        so1 = double.Parse(txtSo1.Text);
-                        so2 = double.Parse(txtSo2.Text);
+                        double so1 = double.Parse(txtSo1.Text);
+                        double so2 = double.Parse(txtSo2.Text);
                         //Thực hiện phép tính dựa vào phép toán được chọn
+
+                        double kq = 0;
 
                         if (radCong.Checked) kq = so1 + so2;
                         else if (radTru.Checked) kq = so1 - so2;
@@ -109,14 +113,35 @@ namespace Buoi07_TinhToan3
                         txtKq.Text = kq.ToString();
                     }
 
-                    /*else if (txt1.Length == 0 || txt2.Length == 0)
+                    else
                     {
-                        if (txt1.Length == 0)
-                        {
-                            txtSo1.Focus();
 
+                        BigInteger bigNum1 = BigInteger.Parse(txt1);
+                        BigInteger bigNum2 = BigInteger.Parse(txt2);
+
+                        BigInteger kq = 0;
+
+                        if(radCong.Checked) kq = bigNum1 + bigNum2;
+                        else if (radTru.Checked) kq = bigNum1 - bigNum2;
+                        else if (radNhan.Checked) kq = bigNum1 * bigNum2;
+                        else if (radChia.Checked)
+                        {
+                            if (bigNum1 == 0)
+                            {
+                                txtSo2.Focus();
+
+                                dr = MessageBox.Show("Không chia được cho 0. Vui lòng nhập lại!",
+                                         "Thông báo", MessageBoxButtons.OK);
+                            }
+                            else
+                            {
+                                kq = bigNum1 / bigNum2;
+
+                            }
                         }
-                    }*/
+                        //Hiển thị kết quả lên trên ô kết quả
+                        txtKq.Text = kq.ToString();
+                    }
                 }
                 catch
                 {
@@ -133,59 +158,102 @@ namespace Buoi07_TinhToan3
 
         private void txtSo2_Click(object sender, EventArgs e)
         {
-            txtSo2.SelectAll();
+            if(txtSo1.Text.Length == 0)
+            {
+                dr = MessageBox.Show("Số thứ nhất không được bỏ trống, vui lòng nhập lại",
+                                        "Thông báo", MessageBoxButtons.OK);
+
+                txtSo1.Focus();
+
+            }
+            else
+            {
+                txtSo2.SelectAll();
+            }
         }
 
         private void txtSo1_KeyPress(object sender, KeyPressEventArgs e)
         {
-
-            // If Key is Enter
-            if (e.KeyChar == (char)Keys.Enter)
+            if (txtSo1.Text.Length == txtSo1.MaxLength)
             {
-                if(txtSo1.Text.Length > 0)
-                {
-                    txtSo2.SelectAll();
-                    txtSo2.Focus();
-                }
-            }
-            else 
-            {
-                e.Handled = !(char.IsDigit(e.KeyChar) || char.IsControl(e.KeyChar) || (e.KeyChar == '.'));
-
-                if (e.Handled == true)
-                {
-                    dr = MessageBox.Show("Kí tự không hợp lệ, vui lòng nhập lại",
+                dr = MessageBox.Show("Không thể nhập được quá 30 chữ số",
                                         "Thông báo", MessageBoxButtons.OK);
+            }
+            else
+            {
+                // If Key is Enter
+                if (e.KeyChar == (char)Keys.Enter)
+                {
+                    if (txtSo1.Text.Length > 0)
+                    {
+                        txtSo2.SelectAll();
+                        txtSo2.Focus();
+                    }
+                }
+                else
+                {
+                    e.Handled = !(char.IsDigit(e.KeyChar) || char.IsControl(e.KeyChar) || (e.KeyChar == '.'));
+
+                    if (e.Handled == true)
+                    {
+                        dr = MessageBox.Show("Kí tự không hợp lệ, vui lòng nhập lại",
+                                            "Thông báo", MessageBoxButtons.OK);
+                    }
                 }
             }
         }
 
         private void txtSo2_KeyPress(object sender, KeyPressEventArgs e)
         {
-            // If Key is Enter
-            if (e.KeyChar == (char)Keys.Enter)
+            if(txtSo2.Text.Length == txtSo2.MaxLength)
             {
-                if (txtSo2.Text.Length > 0)
-                {
-                    this.btnTinh_Click(sender,e);
-                }
+                dr = MessageBox.Show("Không nhập được quá 30 chữ số",
+                                        "Thông báo", MessageBoxButtons.OK);
             }
+
             else
             {
-                e.Handled = !(char.IsDigit(e.KeyChar) || char.IsControl(e.KeyChar) || (e.KeyChar == '.'));
-
-                if (e.Handled == true)
+                // If Key is Enter
+                if (e.KeyChar == (char)Keys.Enter)
                 {
-                    dr = MessageBox.Show("Kí tự không hợp lệ, vui lòng nhập lại",
-                                        "Thông báo", MessageBoxButtons.OK);
+                    if (txtSo2.Text.Length > 0)
+                    {
+                        this.btnTinh_Click(sender, e);
+                    }
                 }
+                else
+                {
+                    e.Handled = !(char.IsDigit(e.KeyChar) || char.IsControl(e.KeyChar) || (e.KeyChar == '.') || (e.KeyChar == '-'));
+
+                    if (e.Handled == true)
+                    {
+                        dr = MessageBox.Show("Kí tự không hợp lệ, vui lòng nhập lại",
+                                            "Thông báo", MessageBoxButtons.OK);
+                    }
+                }
+
             }
+           
         }
 
         private void txtSo1_Click(object sender, EventArgs e)
         {
-            txtSo1.SelectAll();
+
+            if (txtSo2.Text.Length == 0)
+            {
+                dr = MessageBox.Show("Số thứ hai không được bỏ trống, vui lòng nhập lại",
+                                        "Thông báo", MessageBoxButtons.OK);
+
+                txtSo2.Focus();
+
+            }
+            else
+            {
+                txtSo1.SelectAll();
+            }
 
         }
+
+        
     }
 }
