@@ -18,17 +18,20 @@ namespace Buoi07_TinhToan3
             InitializeComponent();
         }
 
-        int number = 0;
+        DialogResult dr;
+
         private void Form1_Load(object sender, EventArgs e)
         {
             radCong.Checked = true; //đầu tiên chọn phép cộng
-            txtSo1.Text = txtSo2.Text = "0";
             radCong.Checked = true;
+
+            txtSo1.Text = txtSo2.Text = "0";
+
         }
 
         private void btnThoat_Click(object sender, EventArgs e)
         {
-            DialogResult dr;
+    
             dr = MessageBox.Show("Bạn có thực sự muốn thoát không?",
                                  "Thông báo", MessageBoxButtons.YesNo);
             if (dr == DialogResult.Yes)
@@ -44,109 +47,145 @@ namespace Buoi07_TinhToan3
         cal28 = focus -> select all --------X
         */
 
+        // Main function for calculate
         private void btnTinh_Click(object sender, EventArgs e)
         {
-            DialogResult dr;
-            try
+            if(txtSo1.Text.Length == 0 || txtSo2.Text.Length == 0)
             {
-                double so1, so2, kq = 0;
-                string txt1, txt2;
-                txt1 = txtSo1.Text;
-                txt2 = txtSo2.Text;
-
-
-                // check length of text
-                if(txt1.Length <= 9 && txt2.Length <= 9)
+                if(txtSo1.Text.Length == 0)
                 {
-                    so1 = double.Parse(txtSo1.Text);
-                    so2 = double.Parse(txtSo2.Text);
-                    //Thực hiện phép tính dựa vào phép toán được chọn
+                    dr = MessageBox.Show("Số thứ nhất không được bỏ trống, vui lòng nhập lại",
+                                        "Thông báo", MessageBoxButtons.OK);
 
-                    if (radCong.Checked) kq = so1 + so2;
-                    else if (radTru.Checked) kq = so1 - so2;
-                    else if (radNhan.Checked) kq = so1 * so2;
-                    else if (radChia.Checked)
+                    txtSo1.Focus();
+                }
+
+                if(txtSo2.Text.Length == 0)
+                {
+                    dr = MessageBox.Show("Số thứ hai không được bỏ trống, vui lòng nhập lại",
+                                        "Thông báo", MessageBoxButtons.OK);
+
+                    txtSo2.Focus();
+
+                }
+            }
+
+            else
+            {
+                try
+                {
+                    double so1, so2, kq = 0;
+                    string txt1, txt2;
+                    txt1 = txtSo1.Text;
+                    txt2 = txtSo2.Text;
+
+
+                    // check length of text
+                    if (txt1.Length <= 9 && txt2.Length <= 9)
                     {
-                        if(so2 == 0)
-                        {
-                            txtSo2.Focus();
+                        so1 = double.Parse(txtSo1.Text);
+                        so2 = double.Parse(txtSo2.Text);
+                        //Thực hiện phép tính dựa vào phép toán được chọn
 
-                            dr = MessageBox.Show("Số không chính xác! Vui lòng nhập lai",
-                                     "Thông báo", MessageBoxButtons.OK);
-                        } else
+                        if (radCong.Checked) kq = so1 + so2;
+                        else if (radTru.Checked) kq = so1 - so2;
+                        else if (radNhan.Checked) kq = so1 * so2;
+                        else if (radChia.Checked)
                         {
-                            kq = so1 / so2;
-                    
+                            if (so2 == 0)
+                            {
+                                txtSo2.Focus();
+
+                                dr = MessageBox.Show("Không chia được cho 0. Vui lòng nhập lại!",
+                                         "Thông báo", MessageBoxButtons.OK);
+                            }
+                            else
+                            {
+                                kq = so1 / so2;
+
+                            }
                         }
+                        //Hiển thị kết quả lên trên ô kết quả
+                        txtKq.Text = kq.ToString();
                     }
-                    //Hiển thị kết quả lên trên ô kết quả
-                    txtKq.Text = kq.ToString();
-                }
 
-                /*else if (txt1.Length == 0 || txt2.Length == 0)
-                {
-                    if (txt1.Length == 0)
+                    /*else if (txt1.Length == 0 || txt2.Length == 0)
                     {
-                        txtSo1.Focus();
+                        if (txt1.Length == 0)
+                        {
+                            txtSo1.Focus();
 
-                    }
-                }*/
+                        }
+                    }*/
+                }
+                catch
+                {
+
+                    dr = MessageBox.Show("Error",
+                                         "Thông báo", MessageBoxButtons.OK);
+
+                }
             }
-            catch {
-                DialogResult dd;
-                dd = MessageBox.Show("Error",
-                                     "Thông báo", MessageBoxButtons.OK);
-                
-            }
+          
+            
         }
 
-        // Check focus when it empty and check character is number
-        private void txtSo2_TextChanged(object sender, EventArgs e)
+
+        private void txtSo2_Click(object sender, EventArgs e)
         {
-            DialogResult dr;
+            txtSo2.SelectAll();
+        }
 
-            Regex RgxUrl = new Regex("^[0-9]");
+        private void txtSo1_KeyPress(object sender, KeyPressEventArgs e)
+        {
 
-
-            if (txtSo2.Text.Length == 0)
+            // If Key is Enter
+            if (e.KeyChar == (char)Keys.Enter)
             {
-                dr = MessageBox.Show("Không được phép để trống",
-                                    "Thông báo", MessageBoxButtons.OK);
-            }
-            else
-            {
-                 
-                if (!RgxUrl.IsMatch(txtSo2.Text))
+                if(txtSo1.Text.Length > 0)
                 {
-                    dr = MessageBox.Show("Kí tự không hợp lệ, vui lòng nhập lai",
-                                    "Thông báo", MessageBoxButtons.OK);
+                    txtSo2.SelectAll();
+                    txtSo2.Focus();
+                }
+            }
+            else 
+            {
+                e.Handled = !(char.IsDigit(e.KeyChar) || char.IsControl(e.KeyChar) || (e.KeyChar == '.'));
+
+                if (e.Handled == true)
+                {
+                    dr = MessageBox.Show("Kí tự không hợp lệ, vui lòng nhập lại",
+                                        "Thông báo", MessageBoxButtons.OK);
                 }
             }
         }
 
-        private void txtSo1_TextChanged_1(object sender, EventArgs e)
+        private void txtSo2_KeyPress(object sender, KeyPressEventArgs e)
         {
-            DialogResult dr;
-
-
-            Regex RgxUrl = new Regex("^[0-9]");
-
-            if (txtSo1.Text.Length == 0)
+            // If Key is Enter
+            if (e.KeyChar == (char)Keys.Enter)
             {
-                if (number != 0)
-                    dr = MessageBox.Show("Không được phép để trống",
-                                    "Thông báo", MessageBoxButtons.OK);
+                if (txtSo2.Text.Length > 0)
+                {
+                    this.btnTinh_Click(sender,e);
+                }
             }
             else
             {
-                number++;
-                if (!RgxUrl.IsMatch(txtSo1.Text))
-                {
-                    dr = MessageBox.Show("Kí tự không hợp lệ, vui lòng nhập lai",
-                                    "Thông báo", MessageBoxButtons.OK);
+                e.Handled = !(char.IsDigit(e.KeyChar) || char.IsControl(e.KeyChar) || (e.KeyChar == '.'));
 
+                if (e.Handled == true)
+                {
+                    dr = MessageBox.Show("Kí tự không hợp lệ, vui lòng nhập lại",
+                                        "Thông báo", MessageBoxButtons.OK);
                 }
             }
+        }
+
+        private void txtSo1_Click(object sender, EventArgs e)
+        {
+            txtSo1.SelectAll();
+
         }
     }
 }
