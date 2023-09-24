@@ -135,7 +135,7 @@ namespace Buoi07_TinhToan3
                             }
                             else
                             {
-                                kq = bigNum1 / bigNum2;
+                                kq = bigNum1 * 1.0 / bigNum2;
 
                             }
                         }
